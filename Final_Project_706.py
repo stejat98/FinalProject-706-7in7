@@ -4,6 +4,7 @@
 ### Loading necessary modules/packages
 import pandas as pd
 import numpy as np
+import sklearn
 from sklearn.decomposition import PCA 
 import altair as alt
 import pandas as pd
