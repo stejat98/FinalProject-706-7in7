@@ -393,7 +393,7 @@ plt.legend(handles,
 ###https://stackoverflow.com/questions/62473426/display-legend-of-seaborn-clustermap-corresponding-to-the-row-colors
 ### https://stackoverflow.com/questions/59792534/how-can-i-label-the-clusters-in-sns-clustermap
 
-st.pyplot(ax)
+#st.pyplot(ax)
 
 
 
@@ -444,4 +444,4 @@ boxplot_altair=alt.Chart(count_matrix_filtered_normalized_subtype_top_10_boxplot
   
 
 
-st.altair_chart(boxplot_altair, use_container_width=False)
+#st.altair_chart(boxplot_altair, use_container_width=False)
