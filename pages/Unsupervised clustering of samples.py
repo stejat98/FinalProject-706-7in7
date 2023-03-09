@@ -12,10 +12,10 @@ import streamlit as st
 
 st.set_page_config(page_title="User-specified stratification of lung adenocarcinoma gene expression signatures by variable of interest", page_icon="📈")
 
-st.markdown("# User-specified stratification by variable of interest of the top 500 genes across lung adenocarcinoma samples")
-st.sidebar.header("User-specified stratification by variable of interest of the top 500 genes across lung adenocarcinoma samples")
+st.markdown("# User-specified stratification by variable of interest of the top 100 genes across lung adenocarcinoma samples")
+st.sidebar.header("User-specified stratification by variable of interest of the top 100 genes across lung adenocarcinoma samples")
 st.write(
-    """This visualization depicts the top 500 genes across lung adenocarcinoma samples stratified by a user-specified variable (e.g., age group)."""
+    """This visualization depicts the top 100 genes across lung adenocarcinoma samples stratified by a user-specified variable (e.g., age group)."""
 )
 
 
@@ -86,7 +86,7 @@ count_matrix_filtered_normalized_subtype_select=count_matrix_filtered_normalized
 ### 4. Getting Top 1000 most variable genes (by computing variance)
 genes_metadata_filtered_10_or_more["variance"]=list(np.var(count_matrix_filtered_normalized_subtype_select, axis=1))
 
-genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["variance"], ascending=False).index)[0:500]
+genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["variance"], ascending=False).index)[0:100]
 
 ### Sources:
 ### https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html

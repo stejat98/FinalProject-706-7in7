@@ -12,10 +12,10 @@ import streamlit as st
 
 st.set_page_config(page_title="PCA using top 500 genes of lung adenocarcinoma", page_icon="📈")
 
-st.markdown("# PCA using top 500 genes of lung adenocarcinoma")
-st.sidebar.header("PCA using top 500 genes of lung adenocarcinoma")
+st.markdown("# PCA using top 100 genes of lung adenocarcinoma")
+st.sidebar.header("PCA using top 100 genes of lung adenocarcinoma")
 st.write(
-    """This visualization depicts the top two principal components among the top 500 most variable genes for lung adenocarcinoma"""
+    """This visualization depicts the top two principal components among the top 100 most variable genes for lung adenocarcinoma"""
 )
 
 
@@ -85,7 +85,7 @@ count_matrix_filtered_normalized_subtype_select=count_matrix_filtered_normalized
 ### 4. Getting Top 1000 most variable genes (by computing variance)
 genes_metadata_filtered_10_or_more["variance"]=list(np.var(count_matrix_filtered_normalized_subtype_select, axis=1))
 
-genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["variance"], ascending=False).index)[0:500]
+genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["variance"], ascending=False).index)[0:100]
 
 ### Sources:
 ### https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html

@@ -18,12 +18,12 @@ import streamlit as st
 import time
 import numpy as np
 
-st.set_page_config(page_title="Heatmap clustering of the top 500 genes & Stacked bar plot of expression subtype and tumor stage", page_icon="📈")
+st.set_page_config(page_title="Heatmap clustering of the top 100 genes & Stacked bar plot of expression subtype and tumor stage", page_icon="📈")
 
-st.markdown("# Heatmap clustering of the top 500 genes & Stacked bar plot of expression subtype and tumor stage")
-st.sidebar.header("Heatmap clustering of the top 500 genes & Stacked bar plot of expression subtype and tumor stage")
+st.markdown("# Heatmap clustering of the top 100 genes & Stacked bar plot of expression subtype and tumor stage")
+st.sidebar.header("Heatmap clustering of the top 100 genes & Stacked bar plot of expression subtype and tumor stage")
 st.write(
-    """This visualization depicts a clustered heatmap reflecting pairwise correlations between the top 500 genes."""
+    """This visualization depicts a clustered heatmap reflecting pairwise correlations between the top 100 genes."""
 )
 
 
@@ -86,7 +86,7 @@ count_matrix_filtered_normalized_subtype=count_matrix_filtered_normalized.loc[:,
 ### 4. Getting Top 1000 most variable genes (by computing variance)
 genes_metadata_filtered_10_or_more["variance"]=list(np.var(count_matrix_filtered_normalized_subtype, axis=1))
 
-genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["variance"], ascending=False).index)[0:500]
+genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["variance"], ascending=False).index)[0:100]
 ### https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html
 ### https://www.datasciencemadesimple.com/variance-function-python-pandas-dataframe-row-column-wise-variance/
 
