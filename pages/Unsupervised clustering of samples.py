@@ -10,7 +10,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples", page_icon="📈")
+st.set_page_config(page_title="User-specified stratification of lung adenocarcinoma gene expression signatures by variable of interest", page_icon="📈")
 
 st.markdown("# User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples")
 st.sidebar.header("User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples")
@@ -70,7 +70,7 @@ count_matrix_filtered_normalized_subtype=count_matrix_filtered_normalized.loc[:,
 
 #### Select Tumor Subtype Options 
 subtypes = list(set(sample_metadata_filtered["paper_expression_subtype"]))
-subtypes_select=st.multiselect("Select Subtype", options=sample_metadata_filtered["paper_expression_subtype"].unique(),   default=subtypes)
+subtypes_select=subtypes
 
 
 #### Filtering sample metadata for subtypes selected
@@ -96,92 +96,6 @@ genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["va
 count_matrix_filtered_normalized_subtype_top_1000=count_matrix_filtered_normalized_subtype_select.loc[count_matrix_filtered_normalized_subtype_select.index.isin(genes_names_top_1000),:] ## Filtering count matrix for top 1000 gnes
 
 genes_metadata_top_1000 = genes_metadata_filtered_10_or_more.loc[genes_metadata_filtered_10_or_more.index.isin(genes_names_top_1000),:] ## updating gene metadata
-
-
-### Creating PCA
-
-
-#### Running PCA (Below code based on https://www.reneshbedre.com/blog/principal-component-analysis.html)
-
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-
-count_matrix_filtered_normalized_subtype_st =  StandardScaler().fit_transform(count_matrix_filtered_normalized_subtype_top_1000) ### Scaling Count Matrix
-
-count_matrix_filtered_normalized_subtype_st=pd.DataFrame(count_matrix_filtered_normalized_subtype_st, 
-             columns=count_matrix_filtered_normalized_subtype_top_1000.columns,
-             index=count_matrix_filtered_normalized_subtype_top_1000.index)
-
-
-
-PCA_of_subtypes = PCA().fit(count_matrix_filtered_normalized_subtype_st) #### Run PCA on scaled count matrix
-
-
-output_PCA_sample_PCS = PCA_of_subtypes.components_ ### Getting loadings
-total_PCs = PCA_of_subtypes.n_features_ ### geting number of PCS
-total_PCs = ["PC"+str(i) for i in list(range(1, total_PCs+1))]
-output_PCA_sample_PCS_df = pd.DataFrame.from_dict(dict(zip(total_PCs, output_PCA_sample_PCS)))
-output_PCA_sample_PCS_df['samples'] = count_matrix_filtered_normalized_subtype_st.columns.values
-output_PCA_sample_PCS_df = output_PCA_sample_PCS_df.set_index('samples')
-
-
-output_PCA_sample_PCS_df["sample_id"]=list(output_PCA_sample_PCS_df.index)
-add_normal_subtype = sample_metadata_filtered_select['paper_expression_subtype'] == "Solid Tissue Normal" 
-sample_metadata_filtered_select.loc[add_normal_subtype, 'paper_expression_subtype'] = "Normal non-tumor" ### Adding normal non-tumor subtype as a subtype
-output_PCA_sample_PCS_df=output_PCA_sample_PCS_df.join(sample_metadata_filtered_select.set_index('barcode'), on='sample_id') ### combining sample metadata with PCA data
-
-output_PCA_sample_PCS_df.columns=total_PCs + ["sample_id", "Sample Subtype", "Sex", "Age", "Race", "Tumor Stage", "Num of Cigarettes per Day"]
-
-
-
-### Fixing NA's of other key variables to deal with tooltip issues
-
-for i in  ["Sample Subtype", "Sex", "Age", "Race", "Tumor Stage", "Num of Cigarettes per Day"]:
-
-        for j in list(range(len(output_PCA_sample_PCS_df[i]))):
-
-            if output_PCA_sample_PCS_df[i][j] == "[unknown]":
-                output_PCA_sample_PCS_df[i][j] = "Not Reported"
-            
-            if output_PCA_sample_PCS_df[i][j] == "":
-                output_PCA_sample_PCS_df[i][j] = "Not Reported"
-
-            if output_PCA_sample_PCS_df[i][j] == "[Not Available]":
-                output_PCA_sample_PCS_df[i][j] = "Not Reported"
-        
-
-
-output_PCA_sample_PCS_df["Num of Cigarettes per Day"][pd.isna(output_PCA_sample_PCS_df["Num of Cigarettes per Day"])]="Not Reported"
-output_PCA_sample_PCS_df["Age"][pd.isna(output_PCA_sample_PCS_df["Age"])]="Not Reported"
-
-
-
-
-#output_PCA_sample_PCS_df["# of Cigarettes per Day"]=list(output_PCA_sample_PCS_df["Num. of Cigarettes per Day"])
-
-
-
-
-PCA_chart=alt.Chart(output_PCA_sample_PCS_df).mark_circle(size=60).encode(
-    x=alt.X('PC1:Q',  title=("PC1"+ " (" + str(round(PCA_of_subtypes.explained_variance_ratio_[0],4)*100) + "%)")),
-    y=alt.Y('PC2:Q',  title=("PC2"+ " (" + str(round(PCA_of_subtypes.explained_variance_ratio_[1],4)*100) + "%)")),
-    color=alt.Color("Sample Subtype:N",  title="Subtype"), ### Color by Subtype 
-    #  https://vega.github.io/vega/docs/schemes/
-
-    tooltip=['Sample Subtype:N', 'Age:N', 'Tumor Stage:N', 'Sex:N', "Race:N", "Num of Cigarettes per Day:N"]
-).interactive()
-
-### Source:
-# https://altair-viz.github.io/gallery/scatter_tooltips.html
-
-
-
-#st.altair_chart(PCA_chart, use_container_width=True)
-
-
-
-
-
 
 
 
@@ -394,7 +308,8 @@ plt.legend(handles,
           sorted_coloring_variable_of_int, 
           title= var_of_int,
            bbox_to_anchor=(1.15, 1), 
-          bbox_transform=plt.gcf().transFigure, 
+          bbox_transform=plt.gcf().transFigure,
+          labelcolor = "black", 
           loc='upper right')
 
 
@@ -428,6 +343,7 @@ count_matrix_filtered_normalized_subtype_top_10_boxplot_transposed_melted=count_
 
 ### boxplot based on https://altair-viz.github.io/gallery/boxplot.html
 
+#alt.themes.enable('opaque')
 
 boxplot_altair=alt.Chart(count_matrix_filtered_normalized_subtype_top_10_boxplot_transposed_melted).mark_boxplot(extent='min-max').encode(
     x=alt.X("Variable_of_Int:N", title="",  axis=alt.Axis(labels=False, ticks=False), stack=None),
@@ -437,15 +353,15 @@ boxplot_altair=alt.Chart(count_matrix_filtered_normalized_subtype_top_10_boxplot
     facet=alt.Column('gene_name:N', columns=5, title="Top 10 Most Variable Genes from the Heatmap")  #https://github.com/altair-viz/altair/issues/2197 and # https://stackoverflow.com/questions/50164001/multiple-column-row-facet-wrap-in-altair
 ).properties(
     width=200, height=300).resolve_scale(y='independent').configure_axisLeft(
-  labelColor='white',
-  titleColor='white'
+  labelColor='black',
+  titleColor='black'
 ).configure_axisRight(
-  labelColor='white',
-  titleColor='white'
+  labelColor='black',
+  titleColor='black'
 ).configure_axisTop(
-  labelColor='white',
-  titleColor='white'
-)
+  labelColor='black',
+  titleColor='black'
+).configure(background="white")
 
 # Sources:
 # https://stackoverflow.com/questions/66624408/shared-axis-labels-with-independent-scale

@@ -18,7 +18,7 @@ import streamlit as st
 import time
 import numpy as np
 
-st.set_page_config(page_title="Heatmap clustering of the top 1000 genes", page_icon="📈")
+st.set_page_config(page_title="Heatmap clustering of the top 1000 genes & Stacked bar plot of expression subtype and tumor stage", page_icon="📈")
 
 st.markdown("# Heatmap clustering of the top 1000 genes")
 st.sidebar.header("Heatmap clustering of the top 1000 genes")
@@ -126,7 +126,7 @@ fig = sns.clustermap(corr_matrix,
 
 st.pyplot(fig)
 
-from statsmodels.graphics.mosaicplot import mosaic
+
 import pandas as pd
 data = sample_metadata_filtered[["paper_expression_subtype","paper_Tumor.stage"]]
 data_df = pd.DataFrame(data)
@@ -138,8 +138,16 @@ data_df = pd.DataFrame(data)
 import altair as alt
 #from vega_datasets import data
 
-data_df.rename(columns={"paper_Tumor.stage": "paper_Tumor_stage"})
+data_df = data_df.rename(columns={"paper_expression_subtype": "Expression_subtype", "paper_Tumor.stage": "Tumor_stage"})
 
+
+
+fig2, ax2 = plt.subplots()
+
+
+fig2 = sns.histplot(binwidth=0.5, x="Expression_subtype", hue="Tumor_stage", data=data_df, stat="count", multiple="stack").figure
+sns.move_legend(ax2, "upper left", bbox_to_anchor=(1, 1))
+st.pyplot(fig2)
 
 
 
