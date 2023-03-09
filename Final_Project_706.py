@@ -10,6 +10,14 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+st.set_page_config(page_title="PCA using top 1000 genes of lung adenocarcinoma", page_icon="📈")
+
+st.markdown("# PCA using top 1000 genes of lung adenocarcinoma")
+st.sidebar.header("PCA using top 1000 genes of lung adenocarcinoma")
+st.write(
+    """This visualization depicts the top two principal components among the top 1000 most variable genes for lung adenocarcinoma"""
+)
+
 
 #### Loading necessary files (we will provide the files and the R script we used to generate the raw files)
 count_matrix = pd.read_table("./Data/count_matrix.txt", delimiter = ' ')
