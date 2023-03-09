@@ -10,12 +10,12 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Heatmap clustering of the top 1000 genes", page_icon="📈")
+st.set_page_config(page_title="Unsupervised clustering by variable of interest of the top 1000 genes for lung adenocarcinoma", page_icon="📈")
 
-st.markdown("# Heatmap clustering of the top 1000 genes")
-st.sidebar.header("Heatmap clustering of the top 1000 genes")
+st.markdown("# Unsupervised clustering by variable of interest of the top 1000 genes for lung adenocarcinoma")
+st.sidebar.header("Unsupervised clustering by variable of interest of the top 1000 genes for lung adenocarcinoma")
 st.write(
-    """This visualization depicts a clustered heatmap reflecting pairwise correlations between the top 1000 genes."""
+    """This visualization depicts unsupervised clustering by user-specified variable of interest of the top 1000 genes for lung adenocarcinoma."""
 )
 
 
