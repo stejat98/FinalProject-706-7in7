@@ -20,8 +20,8 @@ import numpy as np
 
 st.set_page_config(page_title="Heatmap clustering of the top 500 genes & Stacked bar plot of expression subtype and tumor stage", page_icon="📈")
 
-st.markdown("# Heatmap clustering of the top 500 genes")
-st.sidebar.header("Heatmap clustering of the top 500 genes")
+st.markdown("# Heatmap clustering of the top 500 genes & Stacked bar plot of expression subtype and tumor stage")
+st.sidebar.header("Heatmap clustering of the top 500 genes & Stacked bar plot of expression subtype and tumor stage")
 st.write(
     """This visualization depicts a clustered heatmap reflecting pairwise correlations between the top 500 genes."""
 )
