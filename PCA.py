@@ -129,7 +129,7 @@ add_normal_subtype = sample_metadata_filtered_select['paper_expression_subtype']
 sample_metadata_filtered_select.loc[add_normal_subtype, 'paper_expression_subtype'] = "Normal non-tumor" ### Adding normal non-tumor subtype as a subtype
 output_PCA_sample_PCS_df=output_PCA_sample_PCS_df.join(sample_metadata_filtered_select.set_index('barcode'), on='sample_id') ### combining sample metadata with PCA data
 
-output_PCA_sample_PCS_df.columns=total_PCs + ["sample_id", "Sample Subtype", "Sex", "Age", "Race", "Tumor Stage", "Num of Cigarettes per Day"]
+output_PCA_sample_PCS_df.columns=total_PCs[0:100] + ["sample_id", "Sample Subtype", "Sex", "Age", "Race", "Tumor Stage", "Num of Cigarettes per Day"]
 
 
 
