@@ -12,10 +12,10 @@ import streamlit as st
 
 st.set_page_config(page_title="User-specified stratification of lung adenocarcinoma gene expression signatures by variable of interest", page_icon="📈")
 
-st.markdown("# User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples")
-st.sidebar.header("User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples")
+st.markdown("# User-specified stratification by variable of interest of the top 500 genes across lung adenocarcinoma samples")
+st.sidebar.header("User-specified stratification by variable of interest of the top 500 genes across lung adenocarcinoma samples")
 st.write(
-    """This visualization depicts the top 1000 genes across lung adenocarcinoma samples stratified by a user-specified variable (e.g., age group)."""
+    """This visualization depicts the top 500 genes across lung adenocarcinoma samples stratified by a user-specified variable (e.g., age group)."""
 )
 
 

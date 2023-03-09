@@ -10,12 +10,12 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="PCA using top 1000 genes of lung adenocarcinoma", page_icon="📈")
+st.set_page_config(page_title="PCA using top 500 genes of lung adenocarcinoma", page_icon="📈")
 
-st.markdown("# PCA using top 1000 genes of lung adenocarcinoma")
-st.sidebar.header("PCA using top 1000 genes of lung adenocarcinoma")
+st.markdown("# PCA using top 500 genes of lung adenocarcinoma")
+st.sidebar.header("PCA using top 500 genes of lung adenocarcinoma")
 st.write(
-    """This visualization depicts the top two principal components among the top 1000 most variable genes for lung adenocarcinoma"""
+    """This visualization depicts the top two principal components among the top 500 most variable genes for lung adenocarcinoma"""
 )
 
 
