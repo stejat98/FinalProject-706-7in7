@@ -11,3 +11,7 @@ The goal of our analysis is to provide a visual representation of the transcript
 (inter-tumor heterogeneity) and within specific lung adenocarcinoma subgroups (intra-tumor heterogeneity). We also aim to explore how gene expression 
 variation relates to relevant demographic factors (such as age and race) and clinical factors (such as tumor severity), which may help facilitate 
 diagnostic accuracy, treatment efficacy, and therapeutic strategies in the clinical oncology domain.
+
+
+
+*get_data_FIXED.R is a R script that we used to gather our input transcriptomic, phenotypic , and other related data from TCGA
