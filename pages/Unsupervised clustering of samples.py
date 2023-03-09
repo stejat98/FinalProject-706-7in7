@@ -10,12 +10,12 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Unsupervised clustering by variable of interest of the top 1000 genes for lung adenocarcinoma", page_icon="📈")
+st.set_page_config(page_title="User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples", page_icon="📈")
 
-st.markdown("# Unsupervised clustering by variable of interest of the top 1000 genes for lung adenocarcinoma")
-st.sidebar.header("Unsupervised clustering by variable of interest of the top 1000 genes for lung adenocarcinoma")
+st.markdown("# User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples")
+st.sidebar.header("User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples")
 st.write(
-    """This visualization depicts unsupervised clustering by user-specified variable of interest of the top 1000 genes for lung adenocarcinoma."""
+    """This visualization depicts the top 1000 genes across lung adenocarcinoma samples stratified by a suer-specified variable (e.g., age group)."""
 )
 
 
