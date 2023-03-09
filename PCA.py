@@ -85,7 +85,7 @@ count_matrix_filtered_normalized_subtype_select=count_matrix_filtered_normalized
 ### 4. Getting Top 1000 most variable genes (by computing variance)
 genes_metadata_filtered_10_or_more["variance"]=list(np.var(count_matrix_filtered_normalized_subtype_select, axis=1))
 
-genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["variance"], ascending=False).index)[0:1000]
+genes_names_top_1000=list(genes_metadata_filtered_10_or_more.sort_values(by=["variance"], ascending=False).index)[0:500]
 
 ### Sources:
 ### https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html
