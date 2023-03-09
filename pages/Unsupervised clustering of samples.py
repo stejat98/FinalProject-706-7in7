@@ -15,7 +15,7 @@ st.set_page_config(page_title="User-specified stratification by variable of inte
 st.markdown("# User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples")
 st.sidebar.header("User-specified stratification by variable of interest of the top 1000 genes across lung adenocarcinoma samples")
 st.write(
-    """This visualization depicts the top 1000 genes across lung adenocarcinoma samples stratified by a suer-specified variable (e.g., age group)."""
+    """This visualization depicts the top 1000 genes across lung adenocarcinoma samples stratified by a user-specified variable (e.g., age group)."""
 )
 
 
@@ -429,12 +429,12 @@ count_matrix_filtered_normalized_subtype_top_10_boxplot_transposed_melted=count_
 ### boxplot based on https://altair-viz.github.io/gallery/boxplot.html
 
 
-boxplot_altair=alt.Chart(count_matrix_filtered_normalized_subtype_top_10_boxplot_transposed_melted).mark_boxplot(extent='min-max', color="white").encode(
+boxplot_altair=alt.Chart(count_matrix_filtered_normalized_subtype_top_10_boxplot_transposed_melted).mark_boxplot(extent='min-max').encode(
     x=alt.X("Variable_of_Int:N", title="",  axis=alt.Axis(labels=False, ticks=False), stack=None),
     y=alt.Y('value:Q', title="Normalized Expression"),
     color=alt.Color("Variable_of_Int:N", title=var_of_int),
     #column=alt.Column("gene_name:N", title="Top 10 Most Variable Genes from the Heatmap",  header=alt.Header(titleColor="white", labelColor="white")), #https://github.com/altair-viz/altair/issues/2197
-    facet=alt.Column('gene_name:N', columns=5, title="Top 10 Most Variable Genes from the Heatmap",  header=alt.Header(titleColor="white", labelColor="white"))  #https://github.com/altair-viz/altair/issues/2197 and # https://stackoverflow.com/questions/50164001/multiple-column-row-facet-wrap-in-altair
+    facet=alt.Column('gene_name:N', columns=5, title="Top 10 Most Variable Genes from the Heatmap"))  #https://github.com/altair-viz/altair/issues/2197 and # https://stackoverflow.com/questions/50164001/multiple-column-row-facet-wrap-in-altair
 ).properties(
     width=200, height=300).resolve_scale(y='independent').configure_axisLeft(
   labelColor='white',
