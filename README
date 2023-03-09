@@ -1,1 +1,13 @@
-HELLO
+Motivation:
+
+Lung cancer continues to be a major source of cancer-related deaths in several countries, including the home countries of each of the team members. 
+A significant challenge facing the diagnosis and treatment of lung cancer is the stark molecular heterogeneity of lung tumors, which also vary among 
+patients with the same histological type of lung tumor. Therefore, our team decided to concentrate on transcriptomic analysis of the most prevalent type of 
+lung cancer (lung adenocarcinoma) using RNA-seq transcriptomic data from The Cancer Genome Atlas Lung Adenocarcinoma (TCGA-LUAD) dataset. 
+
+Goals:
+
+The goal of our analysis is to provide a visual representation of the transcriptomic heterogeneity across lung adenocarcinoma samples 
+(inter-tumor heterogeneity) and within specific lung adenocarcinoma subgroups (intra-tumor heterogeneity). We also aim to explore how gene expression 
+variation relates to relevant demographic factors (such as age and race) and clinical factors (such as tumor severity), which may help facilitate 
+diagnostic accuracy, treatment efficacy, and therapeutic strategies in the clinical oncology domain.
