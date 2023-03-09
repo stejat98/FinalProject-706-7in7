@@ -138,17 +138,52 @@ data_df = pd.DataFrame(data)
 import altair as alt
 #from vega_datasets import data
 
+
 data_df = data_df.rename(columns={"paper_expression_subtype": "Expression_subtype", "paper_Tumor.stage": "Tumor_stage"})
 
 
+data_df=pd.DataFrame(data_df.groupby(['Expression_subtype', 'Tumor_stage'])['Tumor_stage'].count())
 
-fig2, ax2 = plt.subplots()
-
-
-fig2 = sns.histplot(binwidth=0.5, x="Expression_subtype", hue="Tumor_stage", data=data_df, stat="count", multiple="stack").figure
-sns.move_legend(ax2, "upper left", bbox_to_anchor=(1, 1))
-st.pyplot(fig2)
+data_df["counts"]=data_df["Tumor_stage"]
 
 
+data_df["Expression_subtype"]=""
+for i in list(range(len(data_df["Expression_subtype"]))):
+    data_df["Expression_subtype"][i]=list(data_df.index)[i][0]
 
 
+data_df["Tumor_stage_"]=""
+for i in list(range(len(data_df["Tumor_stage_"]))):
+    data_df["Tumor_stage_"][i]=list(data_df.index)[i][1]
+
+
+
+stacked_bar = alt.Chart(data_df).mark_bar().encode(
+    x=alt.X("sum(counts):Q",title="Percentage of Tumor Subtype Frequencies (%)",  stack="normalize"), 
+    y=alt.Y("Expression_subtype", sort="-x", title="Tumor Subtype", axis=alt.Axis(grid=False,  domain=False)), 
+    color=alt.Color("Tumor_stage_:O", scale=alt.Scale(scheme='set3')), 
+    order=alt.Order("color_Tumor_stage__sort_index:Q") ### order by tumor stage
+    ).configure_axis(
+    grid=False, domainOpacity=0
+).transform_joinaggregate( 
+    total='sum(counts):Q',
+    groupby=['Expression_subtype']  
+).transform_calculate(
+    perc=alt.datum.counts / alt.datum.total 
+).encode(tooltip=
+         [alt.Tooltip("sum(counts):Q",  title="Total Counts"),
+         alt.Tooltip("perc:Q",  title="\% of all frequencies",  format='.0%'),
+          "Expression_subtype", 
+          "Tumor_stage_"])
+
+st.altair_chart(stacked_bar,     use_container_width=True)
+
+
+
+
+
+
+### Sources Consulted for Above Plot:
+### https://altair-viz.github.io/gallery/normalized_stacked_bar_chart.html
+## https://stackoverflow.com/questions/66347857/sort-a-normalized-stacked-bar-chart-with-altair
+## https://stackoverflow.com/questions/65206783/how-to-display-normalized-categories-in-altair-stacked-bar-chart-tooltip
