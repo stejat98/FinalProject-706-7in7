@@ -135,7 +135,7 @@ output_PCA_sample_PCS_df.columns=total_PCs + ["sample_id", "Sample Subtype", "Se
 
 ### Fixing NA's of other key variables to deal with tooltip issues
 
-for i in  ["Sample Subtype", "Sex", "Age", "Race", "Tumor Stage", "Num of Cigarettes per Day"]:
+for i in  ["Sample Subtype", "Sex", "Age", "Race", "Tumor Stage"]:
 
         for j in list(range(len(output_PCA_sample_PCS_df[i]))):
 
